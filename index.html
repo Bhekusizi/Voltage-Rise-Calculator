@@ -1,0 +1,2294 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO -->
+<title>Cable Voltage Rise Calculator | AS/NZS 3008 Compliant | SparkyCalc</title>
+<meta name="description" content="Free online cable voltage rise and voltage drop calculator compliant with AS/NZS 3008.1.1:2025. Calculate voltage rise for single and three-phase circuits with copper and aluminium conductors. Includes PDF report generation.">
+<meta name="keywords" content="voltage rise calculator, voltage drop calculator, AS/NZS 3008, cable sizing, electrical calculator, AS NZS 3008.1.1 2025, voltage drop AS3008, cable voltage drop, solar voltage rise, AS/NZS 4777, electrical engineering tool, Australian electrical standards, New Zealand wiring rules, sparky calculator, cable impedance calculator, copper aluminium cable">
+<meta name="author" content="SparkyCalc">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sparkycalc.com/voltage-rise-calculator">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cable Voltage Rise Calculator | AS/NZS 3008 Compliant">
+<meta property="og:description" content="Free cable voltage rise and drop calculator for Australian and New Zealand electrical installations. AS/NZS 3008.1.1:2025 compliant with PDF report export.">
+<meta property="og:url" content="https://sparkycalc.com/voltage-rise-calculator">
+<meta property="og:site_name" content="SparkyCalc">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cable Voltage Rise Calculator | AS/NZS 3008 | SparkyCalc">
+<meta name="twitter:description" content="Free online voltage rise calculator for AS/NZS 3008.1.1:2025. Single & three-phase, copper & aluminium, with PDF report generation.">
+
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Cable Voltage Rise Calculator",
+  "url": "https://sparkycalc.com/voltage-rise-calculator",
+  "description": "Free online cable voltage rise and voltage drop calculator compliant with AS/NZS 3008.1.1:2025 for Australian and New Zealand electrical installations.",
+  "applicationCategory": "Engineering",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD" },
+  "author": { "@type": "Organization", "name": "SparkyCalc", "url": "https://sparkycalc.com" }
+}
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1e2738;
+    --surface: #28334e;
+    --surface2: #323f60;
+    --surface3: #3c4b70;
+    --border: rgba(255,255,255,0.07);
+    --border-light: rgba(255,255,255,0.12);
+    --accent: #e8a838;
+    --accent-light: #f0c060;
+    --accent-dim: rgba(232,168,56,0.18);
+    --accent-glow: rgba(232,168,56,0.10);
+    --green: #3ecf8e;
+    --green-dim: rgba(62,207,142,0.12);
+    --red: #f06060;
+    --red-dim: rgba(240,96,96,0.12);
+    --blue: #4a9eff;
+    --blue-dim: rgba(74,158,255,0.12);
+    --warn: #f0a030;
+    --warn-dim: rgba(240,160,48,0.12);
+    --text: #ffffff;
+    --text-secondary: #cdd5e8;
+    --text-tertiary: #adb8cf;
+    --radius: 14px;
+    --radius-sm: 8px;
+    --radius-lg: 14px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.3);
+    --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    background: var(--bg);
+    color: var(--text-secondary);
+    min-height: 100vh;
+    padding: 32px 16px 64px;
+    background-image:
+      radial-gradient(ellipse 80% 40% at 50% -10%, rgba(232,168,56,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 30% at 80% 80%, rgba(62,207,142,0.03) 0%, transparent 50%);
+  }
+
+  .wrapper { max-width: 1400px; margin: 0 auto; }
+
+  .main-layout {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 24px;
+    align-items: start;
+  }
+  .main-left { min-width: 0; }
+  .main-right {
+    position: sticky;
+    top: 24px;
+  }
+  @media(max-width: 1100px) {
+    .main-layout {
+      grid-template-columns: 1fr;
+    }
+    .main-right {
+      position: static;
+    }
+  }
+
+  /* ── Header ─────────────────────────────────────────── */
+  header {
+    text-align: center;
+    margin-bottom: 36px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .badge {
+    display: inline-block;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border: 1px solid rgba(232,168,56,0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 5vw, 38px);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    color: var(--text-tertiary);
+    font-weight: 400;
+  }
+
+  /* ── Card ────────────────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+    animation: fadeUp 0.5s ease both;
+  }
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-tertiary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .card-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── Grid layouts ─────────────────────────────────────── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media(max-width: 640px) {
+    .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* ── Form fields ─────────────────────────────────────── */
+  .field { display: flex; flex-direction: column; gap: 7px; }
+  label {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+  }
+
+  input[type="number"], select, input[type="date"] {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border-light);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    width: 100%;
+    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    color-scheme: dark;
+  }
+  input[type="number"]:hover,
+  select:hover,
+  input[type="date"]:hover {
+    background: rgba(255,255,255,0.08);
+  }
+  input[type="number"]:focus,
+  select:focus,
+  input[type="date"]:focus {
+    border-color: var(--accent);
+    border-left: 3px solid var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    background: rgba(255,255,255,0.08);
+  }
+  input[type="number"]::placeholder { color: var(--text-tertiary); }
+  input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+  .select-wrapper {
+    position: relative;
+  }
+  .select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-tertiary);
+    pointer-events: none;
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid var(--text-tertiary);
+  }
+  .select-wrapper select { padding-right: 32px; cursor: pointer; }
+
+  /* Segmented control */
+  .seg {
+    display: flex;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+  .seg button {
+    flex: 1;
+    padding: 10px 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition);
+    position: relative;
+  }
+  .seg button.active {
+    color: var(--accent);
+    background: var(--accent-dim);
+    font-weight: 700;
+  }
+  .seg button:not(:last-child) { border-right: 1px solid var(--border); }
+
+  /* ── Cable segment ───────────────────────────────────── */
+  .cable-segment {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 16px;
+    transition: border-color var(--transition);
+  }
+  .cable-segment:hover { border-color: var(--border-light); }
+
+  .seg-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+  }
+  .seg-header:hover { background: var(--surface3); }
+
+  .seg-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .seg-icon {
+    width: 32px; height: 32px;
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    background: var(--accent-dim);
+  }
+  .seg-route {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    font-weight: 400;
+    margin-top: 2px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .seg-badge {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+  }
+  .seg-badge.ok { color: var(--green); background: var(--green-dim); }
+  .seg-badge.warn { color: var(--warn); background: var(--warn-dim); }
+  .seg-badge.err { color: var(--red); background: var(--red-dim); }
+
+  .seg-body { padding: 20px; }
+
+  .seg-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media(max-width:700px) { .seg-inputs { grid-template-columns: 1fr; } }
+
+  /* Text input class for segment fields */
+  .text-input {
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border-light);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    width: 100%;
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  }
+  .text-input:hover {
+    background: rgba(255,255,255,0.08);
+  }
+  .text-input:focus {
+    border-color: var(--accent);
+    border-left: 3px solid var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    background: rgba(255,255,255,0.08);
+  }
+  textarea.text-input {
+    min-height: 44px;
+    line-height: 1.5;
+  }
+
+  /* ── Results strip ───────────────────────────────────── */
+  .seg-results-section {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+  }
+  .seg-results-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+  }
+  .results-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media(max-width:600px) { .results-strip { grid-template-columns: 1fr; } }
+
+  .result-highlight {
+    border-left: 3px solid var(--blue);
+  }
+  .result-primary {
+    border-left-color: var(--accent) !important;
+    background: rgba(232,168,56,0.04) !important;
+  }
+
+  /* Cable properties compact row */
+  .cable-props-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 14px;
+    padding: 18px 20px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+  @media(max-width:600px) { .cable-props-row { grid-template-columns: 1fr 1fr; } }
+  .cable-prop {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px;
+    padding-right: 16px;
+    border-right: 1px solid var(--border);
+  }
+  .cable-prop:last-child {
+    padding-right: 0;
+    border-right: none;
+  }
+  .cable-prop .cp-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    min-width: 20px;
+  }
+  .cable-prop .cp-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .cable-prop .cp-unit {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+  .cable-prop .r-ref {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    width: 100%;
+    border-top: none;
+    padding-top: 0;
+    margin-top: 4px;
+  }
+
+  .result-cell {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 18px 20px;
+  }
+  .result-cell .r-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .result-cell .r-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .result-cell .r-unit {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    margin-left: 4px;
+    font-weight: 500;
+  }
+  .result-cell .r-ref {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+  }
+
+  /* ── Standards Reference Panel ──────────────────────── */
+  .standards-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    overflow: hidden;
+    animation: fadeUp 0.5s 0.21s ease both;
+  }
+  .standards-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    color: var(--text);
+    transition: background var(--transition);
+  }
+  .standards-toggle:hover { background: rgba(255,255,255,0.02); }
+  .standards-toggle-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .std-icon {
+    width: 32px; height: 32px;
+    border-radius: var(--radius-sm);
+    background: var(--blue-dim);
+    border: 1px solid rgba(74,158,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .std-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 600; color: var(--text); }
+  .std-subtitle { font-family: 'Lora', serif; font-size: 12px; color: var(--text-tertiary); margin-top: 1px; }
+  .standards-body { display: none; padding: 0 24px 24px; }
+  .standards-body.open { display: block; }
+
+  .std-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  @media(max-width:640px) { .std-grid { grid-template-columns: 1fr; } }
+
+  .std-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+  }
+  .std-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .std-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .std-badge.blue { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(74,158,255,0.25); }
+  .std-badge.green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(62,207,142,0.25); }
+  .std-card-title { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 600; line-height: 1.3; color: var(--text); }
+  .std-card-sub { font-family: 'Lora', serif; font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+
+  .std-table-list { list-style: none; }
+  .std-table-list li {
+    display: flex;
+    gap: 10px;
+    padding: 7px 0;
+    font-family: 'Lora', serif;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .std-table-list li:last-child { border-bottom: none; padding-bottom: 0; }
+  .std-table-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 1px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .std-table-desc { color: var(--text-secondary); line-height: 1.5; font-family: 'Lora', serif; }
+  .std-table-used {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+  }
+
+  .std-assumptions {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    margin-top: 4px;
+  }
+  .std-assumptions h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-tertiary);
+    margin-bottom: 10px;
+  }
+  .assumption-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 8px;
+  }
+  .assumption-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-family: 'Lora', serif;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .assumption-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  /* ── Summary card ────────────────────────────────────── */
+  .summary-card {
+    background: linear-gradient(135deg, var(--surface) 0%, rgba(40,51,78,0.9) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .summary-main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .total-block .label {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-tertiary);
+    margin-bottom: 6px;
+  }
+  .total-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1;
+    transition: color 0.4s ease;
+    letter-spacing: -0.02em;
+  }
+  .total-value.ok { color: var(--green); }
+  .total-value.warn { color: var(--warn); }
+  .total-value.err { color: var(--red); }
+  .total-unit { font-size: 22px; opacity: 0.5; }
+
+  .limit-block {
+    text-align: right;
+  }
+  .limit-block .label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .limit-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+
+  .status-bar-wrap {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .status-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+  }
+  .status-bar-track {
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .status-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.4,0,0.2,1), background 0.4s ease;
+  }
+
+  .breakdown-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .breakdown-cell {
+    background: var(--surface2);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+  }
+  .breakdown-cell .bc-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .breakdown-cell .bc-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  /* ── Status message ──────────────────────────────────── */
+  .status-msg {
+    border-radius: var(--radius-sm);
+    padding: 18px 22px;
+    font-family: 'Lora', serif;
+    font-size: 15px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .status-msg.ok { background: var(--green-dim); border: 1px solid rgba(62,207,142,0.25); color: var(--green); }
+  .status-msg.warn { background: var(--warn-dim); border: 1px solid rgba(240,160,48,0.3); color: var(--warn); }
+  .status-msg.err { background: var(--red-dim); border: 1px solid rgba(240,96,96,0.3); color: var(--red); }
+  .status-msg .icon { font-size: 16px; flex-shrink: 0; }
+
+  /* ── Buttons ─────────────────────────────────────────── */
+  .btn-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+  .btn {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition);
+    letter-spacing: 0.03em;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0d1117;
+  }
+  .btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); box-shadow: 0 4px 16px var(--accent-glow); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--border-light); color: var(--text); background: var(--surface2); }
+  .btn-ghost {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border: 1px dashed rgba(232,168,56,0.4);
+    font-weight: 700;
+  }
+  .btn-ghost:hover { border-color: var(--accent); border-style: solid; color: var(--accent-light); background: rgba(232,168,56,0.25); }
+
+  /* ── Disclaimer panel ────────────────────────────────── */
+  .disclaimer {
+    background: rgba(232,168,56,0.06);
+    border: 1px solid rgba(232,168,56,0.22);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    margin-top: 18px;
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+  }
+  .disclaimer-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    line-height: 1;
+  }
+  .disclaimer-body { flex: 1; }
+  .disclaimer-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .disclaimer-text {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .disclaimer-text strong { color: var(--text); font-weight: 600; }
+
+  /* ── Formula reference ───────────────────────────────── */
+  .formula-section { margin-top: 24px; }
+  .formula-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    padding: 8px 0;
+    border: none;
+    background: none;
+    transition: color var(--transition);
+  }
+  .formula-toggle:hover { color: var(--accent); }
+  .formula-content {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    margin-top: 12px;
+    display: none;
+  }
+  .formula-content.visible { display: block; }
+  .formula-content p { font-family: 'Lora', serif; font-size: 13px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 10px; }
+  .formula {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    color: var(--accent);
+    margin: 8px 0 14px;
+    display: block;
+  }
+
+  /* ── Tooltip ─────────────────────────────────────────── */
+  .tip {
+    display: inline-block;
+    width: 15px; height: 15px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    font-size: 9px;
+    color: var(--text-tertiary);
+    text-align: center;
+    line-height: 13px;
+    cursor: help;
+    position: relative;
+    vertical-align: middle;
+    margin-left: 3px;
+    flex-shrink: 0;
+  }
+  .tip:hover::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface3);
+    border: 1px solid var(--border-light);
+    color: var(--text);
+    font-family: 'Lora', serif;
+    font-size: 11px;
+    font-weight: 400;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    max-width: 220px;
+    white-space: pre-wrap;
+    z-index: 99;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  }
+
+
+  /* ── Animations ──────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .card:nth-child(2) { animation-delay: 0.07s; }
+  .card:nth-child(3) { animation-delay: 0.14s; }
+  .card:nth-child(4) { animation-delay: 0.21s; }
+
+  /* ── Footer ──────────────────────────────────────────── */
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    font-family: 'Lora', serif;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    animation: fadeUp 0.5s 0.3s ease both;
+  }
+  footer a { color: var(--text-secondary); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+
+  /* highlight input units */
+  .unit-label {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border-light);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  }
+  .unit-label:hover {
+    background: rgba(255,255,255,0.08);
+  }
+  .unit-label:focus-within {
+    border-color: var(--accent);
+    border-left: 3px solid var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+    background: rgba(255,255,255,0.08);
+  }
+  .unit-label input {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    flex: 1;
+  }
+  .unit-label input:focus { box-shadow: none; }
+  .unit-label .unit {
+    padding: 0 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    background: rgba(255,255,255,0.03);
+    border-left: 1px solid var(--border);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+  }
+
+  /* ── Print report (hidden on screen) ─────────────────── */
+  .print-report { display: none; }
+
+  /* collapse icon */
+  .collapse-icon { transition: transform 0.25s ease; }
+  .collapsed .collapse-icon { transform: rotate(-90deg); }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- Header -->
+  <header>
+    <div class="badge">SparkyCalc</div>
+    <h1>Cable Voltage Rise Calculator</h1>
+    <p class="subtitle">Single &amp; three-phase cable voltage rise analysis · AS/NZS 3008.1.1:2025 compliant</p>
+  </header>
+
+  <!-- ── Project Details ───────────────────────────────────────── -->
+  <div class="card" style="animation-delay:0s">
+    <div class="card-title">Project Details</div>
+    <div class="grid-2" style="gap:20px">
+      <div>
+        <div class="field" style="margin-bottom:14px">
+          <label>Project / Site Name</label>
+          <input type="text" id="proj-name" class="text-input" placeholder="Enter project name">
+        </div>
+        <div class="field" style="margin-bottom:14px">
+          <label>Reference No.</label>
+          <input type="text" id="proj-ref" class="text-input" placeholder="Enter reference number">
+        </div>
+        <div class="field">
+          <label>Date</label>
+          <input type="date" id="proj-date" class="text-input">
+        </div>
+      </div>
+      <div>
+        <div class="field" style="margin-bottom:14px">
+          <label>Organisation</label>
+          <input type="text" id="proj-org" class="text-input" placeholder="Enter organisation">
+        </div>
+        <div class="field" style="margin-bottom:14px">
+          <label>Prepared By</label>
+          <input type="text" id="proj-prepared" class="text-input" placeholder="Enter name">
+        </div>
+        <div class="field" style="margin-bottom:14px">
+          <label>Authorised By</label>
+          <input type="text" id="proj-authorised" class="text-input" placeholder="Enter name">
+        </div>
+        <div class="field">
+          <label>Notes</label>
+          <textarea id="proj-notes" class="text-input" rows="2" placeholder="Additional notes" style="resize:vertical;font-family:'Lora',serif"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── System Configuration ──────────────────────────────────── -->
+  <div class="main-layout">
+    <div class="main-left">
+  <div class="card" style="animation-delay:0s">
+    <div class="card-title"><span class="step-num">1</span> System Configuration</div>
+    <div class="grid-2" style="gap:20px">
+
+      <div>
+        <div class="field" style="margin-bottom:14px">
+          <label>Phase System <span class="tip" data-tip="Single-phase uses 2× conductor factor; 3-phase uses √3">?</span></label>
+          <div class="seg" id="seg-phase">
+            <button class="active" onclick="setPhase('1')">1-Phase AC</button>
+            <button onclick="setPhase('3')">3-Phase AC</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>System Voltage <span class="tip" data-tip="Nominal line-to-line voltage for 3-phase; line-to-neutral for 1-phase">?</span></label>
+          <div class="seg" id="seg-voltage">
+            <button onclick="setVoltage(230)" id="v230">230 V</button>
+            <button class="active" onclick="setVoltage(240)" id="v240">240 V</button>
+            <button onclick="setVoltage(415)" id="v415">415 V</button>
+            <button onclick="setVoltage(0)" id="vcustom">Custom</button>
+          </div>
+        </div>
+        <div class="field" id="custom-voltage-wrap" style="margin-top:10px; display:none">
+          <label>Custom Voltage</label>
+          <div class="unit-label">
+            <input type="number" id="custom-voltage" value="240" min="1" oninput="recalcAll()">
+            <span class="unit">V</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="field" style="margin-bottom:14px">
+          <label>Load / Source Rating</label>
+          <div class="seg" id="seg-unit">
+            <button class="active" onclick="setRatingUnit('kW')">kW</button>
+            <button onclick="setRatingUnit('kVA')">kVA</button>
+            <button onclick="setRatingUnit('A')">Amperes</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Load Rating <span class="tip" data-tip="kW = real power (PF not used for current derivation). kVA = apparent power (I = S/V). Amps = direct current entry.">?</span></label>
+          <div class="unit-label">
+            <input type="number" id="load-rating" value="5" min="0.1" step="0.1" oninput="recalcAll()">
+            <span class="unit" id="rating-unit-label">kW</span>
+          </div>
+        </div>
+        <div class="field" style="margin-top:10px">
+          <label>Power Factor <span class="tip" data-tip="Used in voltage drop coefficient: Vc = Rc·cosφ + Xc·sinφ. Also used to derive current from kVA. Not used for current when entering kW or Amps.">?</span></label>
+          <div class="unit-label">
+            <input type="number" id="power-factor" value="1.0" min="0.1" max="1" step="0.01" oninput="recalcAll()">
+            <span class="unit">–</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:20px">
+      <div class="field">
+        <label>Max Allowable Voltage Rise <span class="tip" data-tip="AS/NZS 4777.1-2024 specifies 2% max for solar. General supply circuits often allow up to 5%.">?</span></label>
+        <div class="seg" id="seg-maxvr">
+          <button onclick="setMaxVR(1.5)">1.5%</button>
+          <button class="active" onclick="setMaxVR(2.0)" id="vr2">2.0%</button>
+          <button onclick="setMaxVR(2.5)">2.5%</button>
+          <button onclick="setMaxVR(5.0)">5.0%</button>
+          <button onclick="setMaxVR(0)" id="vrcustom">Custom</button>
+        </div>
+        <div class="field" id="custom-vr-wrap" style="margin-top:10px; display:none">
+          <div class="unit-label">
+            <input type="number" id="custom-vr" value="2.0" min="0.1" max="20" step="0.1" oninput="recalcAll()">
+            <span class="unit">%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Cable Segments ─────────────────────────────────────────── -->
+  <div class="card" style="animation-delay:0.07s">
+    <div class="card-title"><span class="step-num">2</span> Cable Segments</div>
+    <div id="segments-container"></div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="addSegment()">+ Add Cable Segment</button>
+    </div>
+  </div>
+
+  <!-- ── Standards Reference ───────────────────────────────────── -->
+  <div class="standards-panel">
+    <button class="standards-toggle" onclick="toggleStandards(this)">
+      <div class="standards-toggle-left">
+        <div>
+          <div class="std-title">Standards Reference</div>
+          <div class="std-subtitle">AS/NZS 3000:2018 · AS/NZS 3008.1.1:2025 · AS/NZS 4777.1:2024</div>
+        </div>
+      </div>
+      <span style="color:var(--text-tertiary);font-size:12px;transition:transform 0.25s;display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--text-tertiary)" id="std-arrow"></span>
+    </button>
+    <div class="standards-body" id="standards-body">
+
+      <div class="std-grid">
+
+        <!-- AS/NZS 3008 -->
+        <div class="std-card">
+          <div class="std-card-header">
+            <span class="std-badge blue">AS/NZS 3008.1.1:2025</span>
+            <div>
+              <div class="std-card-title">Electrical Installations — Selection of Cables</div>
+              <div class="std-card-sub">Cables for voltages up to and including 0.6/1 kV a.c. · Published 19 December 2025</div>
+            </div>
+          </div>
+          <ul class="std-table-list">
+            <li>
+              <span class="std-table-num">Table 4.5(A)</span>
+              <div>
+                <div class="std-table-desc">AC resistance at 50 Hz — <strong>Single-core</strong> cables with <strong>copper</strong> conductors. Columns by conductor temperature: 25°C to 110°C.</div>
+                <div class="std-table-used">Used for: Resistance (Rc) — single-core copper · Col 5 (75°C PVC) · Col 7 (90°C XLPE) · Col 8 (110°C X-HF-110/EPR)</div>
+              </div>
+            </li>
+            <li>
+              <span class="std-table-num">Table 4.7(A)</span>
+              <div>
+                <div class="std-table-desc">AC resistance at 50 Hz — <strong>Multicore</strong> cable with circular <strong>copper</strong> conductors. Columns by conductor temperature: 25°C to 110°C.</div>
+                <div class="std-table-used">Used for: Resistance (Rc) — multicore copper · Col 5 (75°C PVC) · Col 6 (90°C XLPE) · Col 7 (110°C X-HF-110/EPR)</div>
+              </div>
+            </li>
+            <li>
+              <span class="std-table-num">Table 4.1(A)</span>
+              <div>
+                <div class="std-table-desc">Reactance at 50 Hz — <strong>Single-core</strong> cables (excl. flexible cords, MIMS, aerial). Columns for trefoil and flat touching formations, by insulation type (Elastomer / PVC / XLPE).</div>
+                <div class="std-table-used">Used for: Reactance (Xc) — single-core · PVC flat touching (Cols 4–5) · XLPE flat touching (Col 6)</div>
+              </div>
+            </li>
+            <li>
+              <span class="std-table-num">Table 4.1(B)</span>
+              <div>
+                <div class="std-table-desc">Reactance at 50 Hz — <strong>Multicore</strong> cables (excl. flexible cords, MIMS, aerial). Columns for circular and shaped conductors by insulation type.</div>
+                <div class="std-table-used">Used for: Reactance (Xc) — multicore · PVC circular (Col 8) · XLPE circular (Col 9)</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- AS/NZS 3000 + 4777 -->
+        <div class="std-card">
+          <div class="std-card-header">
+            <span class="std-badge green">AS/NZS 3000:2018</span>
+            <div>
+              <div class="std-card-title">Wiring Rules — Electrical Installations</div>
+              <div class="std-card-sub">Australian/New Zealand Standard</div>
+            </div>
+          </div>
+          <ul class="std-table-list">
+            <li>
+              <span class="std-table-num">Cl. 3.6</span>
+              <div>
+                <div class="std-table-desc">Voltage drop limits for final sub-circuits and mains — maximum allowable voltage rise/drop at point of use</div>
+                <div class="std-table-used">Used for: Voltage rise formula and % limit compliance</div>
+              </div>
+            </li>
+            <li>
+              <span class="std-table-num">Cl. 3.6.2</span>
+              <div>
+                <div class="std-table-desc">Voltage rise calculation method — 1-phase: 2·I·L·Zc; 3-phase: √3·I·L·Zc (per km)</div>
+                <div class="std-table-used">Used for: Core voltage drop formula selection</div>
+              </div>
+            </li>
+          </ul>
+          <div style="margin-top:14px; padding-top:14px; border-top:1px solid var(--border)">
+            <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);background:var(--accent-dim);display:inline-block;padding:2px 8px;border-radius:4px;margin-bottom:8px">AS/NZS 4777.1:2024</div>
+            <ul class="std-table-list">
+              <li>
+                <span class="std-table-num">Cl. 4.5</span>
+                <div>
+                  <div class="std-table-desc">Maximum voltage rise at inverter terminals — 2% limit for grid-connected energy systems (solar/battery)</div>
+                  <div class="std-table-used">Used for: Default 2.0% max voltage rise limit</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Assumptions -->
+      <div class="std-assumptions">
+        <h4>Calculation Assumptions</h4>
+        <div class="assumption-grid">
+          <div class="assumption-item"><div class="assumption-dot"></div><div>Copper conductors: Tables 4.5(A) / 4.7(A) · Aluminium conductors: Tables 4.5(B) / 4.7(B)</div></div>
+          <div class="assumption-item"><div class="assumption-dot"></div><div>PVC insulation → 75°C operating temperature (Col 5)</div></div>
+          <div class="assumption-item"><div class="assumption-dot"></div><div>XLPE insulation → 90°C operating temperature (Col 7 / Col 6)</div></div>
+          <div class="assumption-item"><div class="assumption-dot"></div><div>X-HF-110 / EPR insulation → 110°C operating temperature (Col 8 / Col 7)</div></div>
+          <div class="assumption-item"><div class="assumption-dot"></div><div>110°C cables use XLPE reactance values from Table 4.1 (cross-linked insulation geometry)</div></div>
+          <div class="assumption-item"><div class="assumption-dot"></div><div>Single-core reactance: flat touching formation (Table 4.1(A)) — worst case for wiring enclosures</div></div>
+          <div class="assumption-item"><div class="assumption-dot"></div><div>Multicore reactance: circular conductors (Table 4.1(B))</div></div>
+          <div class="assumption-item"><div class="assumption-dot"></div><div>Voltage drop uses Vc = Rc·cosφ + Xc·sinφ method (AS/NZS 3008.1.1 Appendix C) — accounts for power factor angle</div></div>
+          <div class="assumption-item"><div class="assumption-dot"></div><div>Current from kW: I = P/V (1φ) or P/(√3V) (3φ) — PF not used in current derivation from real power</div></div>
+          <div class="assumption-item"><div class="assumption-dot"></div><div>Current-carrying capacity (CCC) is <strong>not checked</strong> — cable sizing must be independently verified against AS/NZS 3008.1.1:2025 Tables 3.5–3.31 with applicable correction factors</div></div>
+          <div class="assumption-item"><div class="assumption-dot"></div><div>Distance entered is one-way; 2× factor applied for 1-phase return path</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+    </div><!-- end main-left -->
+
+    <div class="main-right">
+  <!-- ── Summary ───────────────────────────────────────────────── -->
+  <div class="summary-card" style="animation-delay:0.14s">
+    <div class="card-title"><span class="step-num">3</span> Results</div>
+    <div class="summary-main">
+      <div class="total-block">
+        <div class="label">Total Voltage Rise</div>
+        <div class="total-value ok" id="total-vr">0.00<span class="total-unit">%</span></div>
+      </div>
+      <div class="limit-block">
+        <div class="label">Limit</div>
+        <div class="limit-value" id="limit-display">≤ 2.00%</div>
+        <div style="margin-top:8px; font-size:12px; color:var(--text-tertiary)" id="headroom-display">Headroom: —</div>
+      </div>
+    </div>
+
+    <div class="status-bar-wrap">
+      <div class="status-bar-label">
+        <span>0%</span>
+        <span id="bar-limit-label">Max 2.00%</span>
+      </div>
+      <div class="status-bar-track">
+        <div class="status-bar-fill" id="status-bar" style="width:0%; background:var(--green)"></div>
+      </div>
+    </div>
+
+    <div class="breakdown-row" id="breakdown-row"></div>
+
+    <!-- Minimum cable size suggestions -->
+    <div id="min-size-panel" style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border);display:none">
+      <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:14px;display:flex;align-items:center;gap:8px">
+        Minimum Cable Size (for voltage rise compliance)
+        <span class="tip" data-tip="Shows the smallest cable size per segment that keeps total voltage rise within the limit. Does NOT verify current-carrying capacity.">?</span>
+      </div>
+      <div id="min-size-results" style="display:grid;grid-template-columns:1fr;gap:12px"></div>
+    </div>
+
+    <div id="status-message" class="status-msg ok" style="display:none"></div>
+
+    <div class="disclaimer">
+      <div class="disclaimer-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div class="disclaimer-body">
+        <div class="disclaimer-title">Current Rating Not Verified</div>
+        <div class="disclaimer-text">
+          This calculator determines voltage rise only — it does not verify current-carrying capacity (CCC). A compliant voltage rise result does not confirm the cable is adequately sized. CCC must be independently verified per AS/NZS 3008.1.1:2025 (Tables 3.5–3.31) with all applicable correction factors per AS/NZS 3000:2018 Clause 3.5.
+        </div>
+      </div>
+    </div>
+
+    <div class="formula-section">
+      <button class="formula-toggle" onclick="toggleFormulas(this)">
+        <span style="display:inline-block;width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--text-tertiary);transition:transform 0.25s"></span> Show Calculation Formulas
+      </button>
+      <div class="formula-content" id="formula-content">
+        <p><strong>Effective voltage drop coefficient (Ω/km):</strong></p>
+        <code class="formula">Vc = Rc × cosφ + Xc × sinφ</code>
+        <p><strong>Single-phase voltage rise (V):</strong></p>
+        <code class="formula">ΔV₁φ = I × L × 2 × Vc / 1000</code>
+        <p><strong>Three-phase voltage rise (V):</strong></p>
+        <code class="formula">ΔV₃φ = I × L × √3 × Vc / 1000</code>
+        <p><strong>Percentage voltage rise:</strong></p>
+        <code class="formula">%ΔV = (ΔV / V_nominal) × 100</code>
+        <p><strong>Cable impedance magnitude (Ω/km) — shown for reference only:</strong></p>
+        <code class="formula">Zc = √(Rc² + Xc²)</code>
+        <p><strong>Current from real power (kW):</strong></p>
+        <code class="formula">I₁φ = P / V  ·  I₃φ = P / (√3 × V)</code>
+        <p><strong>Current from apparent power (kVA):</strong></p>
+        <code class="formula">I₁φ = S / V  ·  I₃φ = S / (√3 × V)</code>
+        <p style="margin-top:6px">Where <em>I</em> = current (A), <em>L</em> = cable length (m), <em>Vc</em> = effective voltage drop coefficient (Ω/km), <em>Rc</em> = AC resistance, <em>Xc</em> = reactance, <em>φ</em> = power factor angle. The <em>Vc</em> method (R·cosφ + X·sinφ) accounts for the phase angle between current and voltage, giving a more accurate result than using impedance magnitude <em>Zc</em> alone. Resistance values from AS/NZS 3008.1.1:2025 Tables 4.5(A) &amp; 4.7(A). Reactance from Tables 4.1(A) &amp; 4.1(B). Voltage rise limit per AS/NZS 4777.1:2024 Cl. 4.5.</p>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="recalcAll()">Recalculate</button>
+      <button class="btn btn-secondary" onclick="printReport()">Print Report</button>
+      <button class="btn btn-secondary" onclick="resetAll()">Reset to Defaults</button>
+    </div>
+  </div>
+    </div><!-- end main-right -->
+  </div><!-- end main-layout -->
+
+  <footer>
+    <p>SparkyCalc · Cable Voltage Rise Calculator · AS/NZS 3008.1.1:2025 · AS/NZS 3000:2018 · AS/NZS 4777.1:2024</p>
+    <p style="margin-top:6px">Voltage rise compliance alone does not confirm a cable is suitable for installation. Current-carrying capacity must also be verified. Always consult a licensed electrical engineer before installation.</p>
+  </footer>
+
+  <!-- Print Report (hidden on screen) -->
+  <div id="print-report" class="print-report"></div>
+
+</div>
+
+<!-- Print Styles -->
+<style media="print">
+  /* Hide all screen UI */
+  header, footer, .main-layout, .card, .summary-card, .standards-panel,
+  .cable-segment, .btn-row, .formula-section, .badge, .subtitle,
+  .disclaimer, .seg, .status-msg, h1, .wrapper > *:not(#print-report) {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #1e2738 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-image: none !important;
+    font-family: 'Lora', serif !important;
+    font-size: 9pt !important;
+    line-height: 1.45 !important;
+  }
+
+  .wrapper {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #print-report, .print-report {
+    display: block !important;
+    color: #1e2738;
+    background: #fff;
+  }
+
+  /* ── Report layout ── */
+  .pr { background: #fff; color: #1e2738; padding: 0; }
+
+  .pr-header {
+    text-align: center; margin-bottom: 20pt; padding-bottom: 10pt;
+    border-bottom: 2.5pt solid #2bb5a0;
+  }
+  .pr-title { font-family: 'Syne', sans-serif; font-size: 20pt; font-weight: 700; color: #1e2738; margin-bottom: 2pt; }
+  .pr-subtitle { font-family: 'Lora', serif; font-size: 9pt; color: #1e2738; }
+
+  /* ── Sections ── */
+  .pr-section { margin-bottom: 14pt; page-break-inside: avoid; }
+  .pr-section-title {
+    font-family: 'Syne', sans-serif; font-size: 9pt; font-weight: 700;
+    color: #2bb5a0; text-transform: uppercase; letter-spacing: 0.08em;
+    padding-bottom: 4pt; margin-bottom: 8pt; border-bottom: 0.75pt solid #2bb5a0;
+  }
+
+  /* ── Two-column info tables ── */
+  .pr-table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  .pr-table td {
+    padding: 4pt 6pt; border-bottom: 0.5pt solid rgba(43,181,160,0.2); vertical-align: top;
+  }
+  .pr-table td:first-child {
+    font-family: 'Syne', sans-serif; font-weight: 600; color: #1e2738; width: 38%;
+    white-space: nowrap;
+  }
+  .pr-table td:last-child { font-family: 'Lora', serif; color: #1e2738; word-wrap: break-word; }
+  .pr-table tr:last-child td { border-bottom: none; }
+
+  /* ── Segment headers ── */
+  .pr-seg-header {
+    font-family: 'Syne', sans-serif; font-size: 10pt; font-weight: 700;
+    color: #1e2738; margin-bottom: 6pt; padding: 5pt 8pt;
+    background: #f0f6f5; border-left: 3pt solid #2bb5a0; border-radius: 2pt;
+  }
+  .pr-seg-num { color: #1e2738; margin-right: 4pt; }
+
+  .pr-pass { color: #16a34a; }
+  .pr-fail { color: #dc2626; }
+
+  /* ── Calculation steps ── */
+  .pr-steps { margin: 8pt 0; }
+  .pr-step {
+    display: flex; gap: 8pt; padding: 5pt 0; border-bottom: 0.5pt solid rgba(43,181,160,0.2);
+    font-size: 8.5pt; align-items: flex-start;
+  }
+  .pr-step:last-child { border-bottom: none; }
+  .pr-step-num {
+    font-family: 'Syne', sans-serif; font-size: 8pt; font-weight: 700;
+    color: #1e2738; background: #d4ece7; width: 18pt; height: 18pt;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1pt; border: 0.5pt solid #2bb5a0;
+  }
+  .pr-step-content { flex: 1; }
+  .pr-step-value {
+    font-family: 'Syne', sans-serif; font-size: 10pt; font-weight: 700; color: #1e2738;
+  }
+  .pr-step-value .unit { font-size: 8pt; color: #1e2738; font-weight: 500; margin-left: 2pt; }
+  .pr-step-desc { font-family: 'Lora', serif; font-size: 8pt; color: #1e2738; margin-top: 1pt; line-height: 1.4; }
+  .pr-step-formula {
+    font-family: 'DM Mono', monospace; font-size: 8pt; color: #1e2738;
+    margin-top: 2pt; padding: 2pt 6pt; background: #f0f6f5; border-radius: 2pt;
+    display: inline-block;
+  }
+
+  /* ── Disclaimer ── */
+  .pr-disclaimer {
+    margin-top: 14pt; padding: 8pt 12pt; border: 0.5pt solid rgba(43,181,160,0.2);
+    border-left: 2.5pt solid #e8a838; border-radius: 3pt; font-size: 7.5pt;
+    color: #1e2738; line-height: 1.5; font-family: 'Lora', serif; font-style: italic;
+  }
+
+  @page { size: A4 portrait; margin: 18mm 16mm 14mm 16mm; }
+</style>
+
+<script>
+// ─────────────────────────────────────────────
+// Cable data: AS/NZS 3008.1.1:2025
+//
+// AC Resistance (Ω/km) at conductor operating temperature:
+//   PVC insulation  → 75°C  (Col 5)
+//   XLPE insulation → 90°C  (Col 7 single-core / Col 6 multicore)
+//   110°C cross-linked (X-HF-110/EPR) → 110°C (Col 8 single-core / Col 7 multicore)
+//
+// Resistance sources:
+//   Single-core copper:  Table 4.5(A)  Col 5 (75°C) / Col 7 (90°C) / Col 8 (110°C)
+//   Multicore copper:    Table 4.7(A)  Col 5 (75°C) / Col 6 (90°C) / Col 7 (110°C)
+//
+// Reactance sources:
+//   Single-core (flat touching): Table 4.1(A) PVC (Cols 4-5) / XLPE (Col 6)
+//   Multicore (circular):        Table 4.1(B) PVC (Col 8) / XLPE (Col 9)
+//   Note: 110°C cables use cross-linked insulation — XLPE reactance column applies
+//
+// Format: { size, label, Rm, Rs (75°C PVC), Rm_x, Rs_x (90°C XLPE), Rm_110, Rs_110 (110°C),
+//           Xm_pvc, Xs_pvc, Xm_xlpe, Xs_xlpe }
+// ─────────────────────────────────────────────
+const CABLE_DATA = [
+  // size    label       R 75°C          R 90°C          R 110°C         X PVC           X XLPE
+  //                     Rm      Rs      Rm_x    Rs_x    Rm_110  Rs_110  Xm_pvc  Xs_pvc  Xm_x    Xs_x
+  { size:1,   label:'1 mm²',   Rm:25.8,  Rs:25.8,  Rm_x:27.0,  Rs_x:27.0,  Rm_110:28.7,  Rs_110:28.7,  Xm:0.0967, Xs:0.184,  Xm_x:0.0887, Xs_x:0.181 },
+  { size:1.5, label:'1.5 mm²', Rm:16.5,  Rs:16.5,  Rm_x:17.3,  Rs_x:17.3,  Rm_110:18.4,  Rs_110:18.4,  Xm:0.0906, Xs:0.172,  Xm_x:0.0840, Xs_x:0.170 },
+  { size:2.5, label:'2.5 mm²', Rm:9.01,  Rs:9.01,  Rm_x:9.45,  Rs_x:9.45,  Rm_110:10.0,  Rs_110:10.0,  Xm:0.0853, Xs:0.159,  Xm_x:0.0808, Xs_x:0.156 },
+  { size:4,   label:'4 mm²',   Rm:5.61,  Rs:5.61,  Rm_x:5.88,  Rs_x:5.88,  Rm_110:6.24,  Rs_110:6.24,  Xm:0.0826, Xs:0.152,  Xm_x:0.0786, Xs_x:0.146 },
+  { size:6,   label:'6 mm²',   Rm:3.75,  Rs:3.75,  Rm_x:3.93,  Rs_x:3.93,  Rm_110:4.17,  Rs_110:4.17,  Xm:0.0797, Xs:0.143,  Xm_x:0.0751, Xs_x:0.138 },
+  { size:10,  label:'10 mm²',  Rm:2.23,  Rs:2.23,  Rm_x:2.33,  Rs_x:2.33,  Rm_110:2.48,  Rs_110:2.48,  Xm:0.0770, Xs:0.134,  Xm_x:0.0741, Xs_x:0.129 },
+  { size:16,  label:'16 mm²',  Rm:1.40,  Rs:1.40,  Rm_x:1.47,  Rs_x:1.47,  Rm_110:1.56,  Rs_110:1.56,  Xm:0.0766, Xs:0.126,  Xm_x:0.0725, Xs_x:0.122 },
+  { size:25,  label:'25 mm²',  Rm:0.884, Rs:0.884, Rm_x:0.927, Rs_x:0.927, Rm_110:0.984, Rs_110:0.984, Xm:0.0745, Xs:0.121,  Xm_x:0.0718, Xs_x:0.118 },
+  { size:35,  label:'35 mm²',  Rm:0.638, Rs:0.638, Rm_x:0.668, Rs_x:0.668, Rm_110:0.710, Rs_110:0.710, Xm:0.0735, Xs:0.117,  Xm_x:0.0704, Xs_x:0.113 },
+  { size:50,  label:'50 mm²',  Rm:0.471, Rs:0.471, Rm_x:0.494, Rs_x:0.494, Rm_110:0.524, Rs_110:0.524, Xm:0.0734, Xs:0.111,  Xm_x:0.0692, Xs_x:0.108 },
+  { size:70,  label:'70 mm²',  Rm:0.327, Rs:0.327, Rm_x:0.342, Rs_x:0.342, Rm_110:0.364, Rs_110:0.363, Xm:0.0710, Xs:0.107,  Xm_x:0.0683, Xs_x:0.104 },
+  { size:95,  label:'95 mm²',  Rm:0.236, Rs:0.236, Rm_x:0.247, Rs_x:0.247, Rm_110:0.263, Rs_110:0.262, Xm:0.0706, Xs:0.106,  Xm_x:0.0668, Xs_x:0.102 },
+  { size:120, label:'120 mm²', Rm:0.188, Rs:0.188, Rm_x:0.197, Rs_x:0.197, Rm_110:0.209, Rs_110:0.208, Xm:0.0685, Xs:0.102,  Xm_x:0.0657, Xs_x:0.0996},
+  { size:150, label:'150 mm²', Rm:0.153, Rs:0.153, Rm_x:0.160, Rs_x:0.160, Rm_110:0.170, Rs_110:0.169, Xm:0.0687, Xs:0.102,  Xm_x:0.0662, Xs_x:0.0996},
+  { size:185, label:'185 mm²', Rm:0.123, Rs:0.123, Rm_x:0.129, Rs_x:0.129, Rm_110:0.137, Rs_110:0.136, Xm:0.0686, Xs:0.101,  Xm_x:0.0663, Xs_x:0.0988},
+  { size:240, label:'240 mm²', Rm:0.0955,Rs:0.0948,Rm_x:0.0998,Rs_x:0.0991,Rm_110:0.105, Rs_110:0.105, Xm:0.0678, Xs:0.0999, Xm_x:0.0653, Xs_x:0.0970},
+  { size:300, label:'300 mm²', Rm:0.0778,Rs:0.0770,Rm_x:0.0812,Rs_x:0.0803,Rm_110:0.0856,Rs_110:0.0849,Xm:0.0675, Xs:0.0991, Xm_x:0.0649, Xs_x:0.0961},
+  { size:400, label:'400 mm²', Rm:0.0630,Rs:0.0620,Rm_x:0.0656,Rs_x:0.0646,Rm_110:0.0690,Rs_110:0.0681,Xm:0.0671, Xs:0.0982, Xm_x:0.0647, Xs_x:0.0955},
+  { size:500, label:'500 mm²', Rm:0.0525,Rs:0.0506,Rm_x:0.0544,Rs_x:0.0525,Rm_110:0.0570,Rs_110:0.0551,Xm:0.0666, Xs:0.0973, Xm_x:0.0645, Xs_x:0.0948},
+];
+
+// Aluminium conductor data — AS/NZS 3008.1.1:2025 Tables 4.5(B) & 4.7(B)
+// Reactance values are the same as copper (geometry-dependent, not material-dependent)
+// Aluminium starts at 16 mm² (smaller sizes not manufactured)
+const CABLE_DATA_AL = [
+  { size:16,  label:'16 mm²',  Rm:2.30,  Rs:2.30,  Rm_x:2.41,  Rs_x:2.41,  Rm_110:2.56,  Rs_110:2.56,  Xm:0.0766, Xs:0.126,  Xm_x:0.0725, Xs_x:0.122 },
+  { size:25,  label:'25 mm²',  Rm:1.46,  Rs:1.46,  Rm_x:1.53,  Rs_x:1.53,  Rm_110:1.62,  Rs_110:1.62,  Xm:0.0745, Xs:0.121,  Xm_x:0.0718, Xs_x:0.118 },
+  { size:35,  label:'35 mm²',  Rm:1.05,  Rs:1.05,  Rm_x:1.10,  Rs_x:1.10,  Rm_110:1.17,  Rs_110:1.17,  Xm:0.0735, Xs:0.117,  Xm_x:0.0704, Xs_x:0.113 },
+  { size:50,  label:'50 mm²',  Rm:0.774, Rs:0.774, Rm_x:0.811, Rs_x:0.811, Rm_110:0.861, Rs_110:0.861, Xm:0.0734, Xs:0.111,  Xm_x:0.0692, Xs_x:0.108 },
+  { size:70,  label:'70 mm²',  Rm:0.536, Rs:0.536, Rm_x:0.562, Rs_x:0.562, Rm_110:0.596, Rs_110:0.596, Xm:0.0710, Xs:0.107,  Xm_x:0.0683, Xs_x:0.104 },
+  { size:95,  label:'95 mm²',  Rm:0.387, Rs:0.387, Rm_x:0.406, Rs_x:0.406, Rm_110:0.431, Rs_110:0.431, Xm:0.0706, Xs:0.106,  Xm_x:0.0668, Xs_x:0.102 },
+  { size:120, label:'120 mm²', Rm:0.308, Rs:0.308, Rm_x:0.323, Rs_x:0.323, Rm_110:0.342, Rs_110:0.342, Xm:0.0685, Xs:0.102,  Xm_x:0.0657, Xs_x:0.0996},
+  { size:150, label:'150 mm²', Rm:0.251, Rs:0.251, Rm_x:0.263, Rs_x:0.263, Rm_110:0.279, Rs_110:0.279, Xm:0.0687, Xs:0.102,  Xm_x:0.0662, Xs_x:0.0996},
+  { size:185, label:'185 mm²', Rm:0.202, Rs:0.202, Rm_x:0.212, Rs_x:0.212, Rm_110:0.225, Rs_110:0.225, Xm:0.0686, Xs:0.101,  Xm_x:0.0663, Xs_x:0.0988},
+  { size:240, label:'240 mm²', Rm:0.157, Rs:0.156, Rm_x:0.164, Rs_x:0.163, Rm_110:0.173, Rs_110:0.172, Xm:0.0678, Xs:0.0999, Xm_x:0.0653, Xs_x:0.0970},
+  { size:300, label:'300 mm²', Rm:0.128, Rs:0.126, Rm_x:0.133, Rs_x:0.132, Rm_110:0.140, Rs_110:0.139, Xm:0.0675, Xs:0.0991, Xm_x:0.0649, Xs_x:0.0961},
+  { size:400, label:'400 mm²', Rm:0.103, Rs:0.102, Rm_x:0.108, Rs_x:0.106, Rm_110:0.113, Rs_110:0.112, Xm:0.0671, Xs:0.0982, Xm_x:0.0647, Xs_x:0.0955},
+  { size:500, label:'500 mm²', Rm:0.0862,Rs:0.0831,Rm_x:0.0894,Rs_x:0.0863,Rm_110:0.0936,Rs_110:0.0905,Xm:0.0666, Xs:0.0973, Xm_x:0.0645, Xs_x:0.0948},
+];
+
+// Helper to get the correct cable data array for a segment
+function getCableDataForSegment(seg) {
+  return (seg.conductor === 'al') ? CABLE_DATA_AL : CABLE_DATA;
+}
+
+// ── State ──────────────────────────────────────────────
+let state = {
+  phase: '1',
+  voltage: 240,
+  useCustomVoltage: false,
+  ratingUnit: 'kW',
+  loadRating: 5,
+  powerFactor: 1.0,
+  maxVR: 2.0,
+  useCustomVR: false,
+  segments: []
+};
+
+let segmentCounter = 0;
+
+// ── Init ───────────────────────────────────────────────
+function init() {
+  // Set default date to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('proj-date').value = today;
+
+  addSegment('Point of Supply', 'Main Switchboard', 10, 'multi', 20);
+  addSegment('Main Switchboard', 'Distribution Board', 6, 'multi', 15);
+  recalcAll();
+}
+
+// ── Segment management ─────────────────────────────────
+function addSegment(from='', to='', sizeIdx=5, coreType='multi', distance=10, insulation='pvc', conductor='cu') {
+  const id = ++segmentCounter;
+  state.segments.push({ id, from, to, sizeIdx, coreType, distance, insulation, conductor, collapsed: false });
+  renderSegments();
+  recalcAll();
+}
+
+function removeSegment(id) {
+  state.segments = state.segments.filter(s => s.id !== id);
+  renderSegments();
+  recalcAll();
+}
+
+function toggleCollapse(id) {
+  const seg = state.segments.find(s => s.id === id);
+  if(seg) { seg.collapsed = !seg.collapsed; renderSegments(); }
+}
+
+function renderSegments() {
+  const container = document.getElementById('segments-container');
+  container.innerHTML = '';
+  state.segments.forEach((seg, idx) => {
+    const cableData = getCableDataForSegment(seg);
+    const cd = cableData[seg.sizeIdx] || cableData[0];
+    const sizeOptions = cableData.map((c,i) =>
+      `<option value="${i}" ${i===seg.sizeIdx?'selected':''}>${c.label}</option>`
+    ).join('');
+    const condLabel = seg.conductor === 'al' ? 'Al' : 'Cu';
+
+    const el = document.createElement('div');
+    el.className = 'cable-segment' + (seg.collapsed ? ' collapsed' : '');
+    el.innerHTML = `
+      <div class="seg-header" onclick="toggleCollapse(${seg.id})">
+        <div class="seg-label">
+          <div>
+            <div>Segment ${idx+1}</div>
+            <div class="seg-route">${seg.from||'From'} → ${seg.to||'To'}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;padding:2px 7px;border-radius:4px;background:${seg.conductor==='al'?'rgba(180,180,200,0.12)':'rgba(232,160,75,0.12)'};color:${seg.conductor==='al'?'#b0b0c8':'#e8a04b'};border:1px solid ${seg.conductor==='al'?'rgba(180,180,200,0.25)':'rgba(232,160,75,0.25)'}">${condLabel}</span>
+          <span style="font-family:'DM Mono',monospace;font-size:10px;padding:2px 7px;border-radius:4px;background:${seg.insulation==='110'?'rgba(240,130,82,0.12)':seg.insulation==='xlpe'?'rgba(74,158,255,0.12)':'rgba(62,207,142,0.1)'};color:${seg.insulation==='110'?'#f08252':seg.insulation==='xlpe'?'#4a9eff':'#3ecf8e'};border:1px solid ${seg.insulation==='110'?'rgba(240,130,82,0.25)':seg.insulation==='xlpe'?'rgba(74,158,255,0.25)':'rgba(62,207,142,0.2)'}">${seg.insulation==='110'?'X-HF-110 / EPR 110°C':seg.insulation==='xlpe'?'XLPE 90°C':'PVC 75°C'}</span>
+          <span class="seg-badge ok" id="seg-badge-${seg.id}">—</span>
+          ${state.segments.length > 1 ? `<button onclick="event.stopPropagation();removeSegment(${seg.id})" style="background:none;border:none;color:var(--text-tertiary);cursor:pointer;font-size:14px;padding:2px 6px;line-height:1;border-radius:4px;font-family:'Syne',sans-serif" title="Remove segment">x</button>` : ''}
+          <span class="collapse-icon" style="color:var(--text-tertiary);display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--text-tertiary)"></span>
+        </div>
+      </div>
+      <div class="seg-body" ${seg.collapsed?'style="display:none"':''}>
+        <div class="seg-inputs">
+          <div class="field">
+            <label>From</label>
+            <input type="text" value="${seg.from}" oninput="updateSegField(${seg.id},'from',this.value)" class="text-input">
+          </div>
+          <div class="field">
+            <label>To</label>
+            <input type="text" value="${seg.to}" oninput="updateSegField(${seg.id},'to',this.value)" class="text-input">
+          </div>
+          <div class="field">
+            <label>Conductor</label>
+            <div class="select-wrapper">
+              <select onchange="updateConductor(${seg.id},this.value)">
+                <option value="cu" ${seg.conductor==='cu'?'selected':''}>Copper (Cu)</option>
+                <option value="al" ${seg.conductor==='al'?'selected':''}>Aluminium (Al)</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Cable Type</label>
+            <div class="select-wrapper">
+              <select onchange="updateSegField(${seg.id},'coreType',this.value)">
+                <option value="multi" ${seg.coreType==='multi'?'selected':''}>Multi-core</option>
+                <option value="single" ${seg.coreType==='single'?'selected':''}>Single-core</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Insulation</label>
+            <div class="select-wrapper">
+              <select onchange="updateSegField(${seg.id},'insulation',this.value)">
+                <option value="pvc"  ${seg.insulation==='pvc' ?'selected':''}>PVC (75°C)</option>
+                <option value="xlpe" ${seg.insulation==='xlpe'?'selected':''}>XLPE (90°C)</option>
+                <option value="110"  ${seg.insulation==='110' ?'selected':''}>X-HF-110 / EPR (110°C)</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Cable Size</label>
+            <div class="select-wrapper">
+              <select onchange="updateSegField(${seg.id},'sizeIdx',parseInt(this.value))">${sizeOptions}</select>
+            </div>
+          </div>
+          <div class="field">
+            <label>One-Way Cable Distance</label>
+            <div class="unit-label">
+              <input type="number" value="${seg.distance}" min="1" step="0.5"
+                oninput="updateSegField(${seg.id},'distance',parseFloat(this.value))"
+                style="border:none;border-radius:0;background:transparent;flex:1">
+              <span class="unit">metres</span>
+            </div>
+          </div>
+        </div>
+        <div class="seg-results-section">
+          <div class="seg-results-label">Segment Results</div>
+          <div class="results-strip" id="results-${seg.id}">
+            <div class="result-cell result-highlight">
+              <div class="r-label">Current (I)</div>
+              <div class="r-value" id="i-${seg.id}">—<span class="r-unit">A</span></div>
+              <div class="r-ref">From load rating<br><span style="color:var(--text-tertiary)">${state.ratingUnit === 'kW' ? (state.phase === '1' ? 'I = P / V' : 'I = P / (√3 × V)') : state.ratingUnit === 'kVA' ? (state.phase === '1' ? 'I = S / V' : 'I = S / (√3 × V)') : 'Direct entry'}</span></div>
+            </div>
+            <div class="result-cell result-highlight">
+              <div class="r-label">Voltage Drop (ΔV)</div>
+              <div class="r-value" id="vd-${seg.id}">—<span class="r-unit">V</span></div>
+              <div class="r-ref" id="vd-ref-${seg.id}">—</div>
+            </div>
+            <div class="result-cell result-highlight result-primary">
+              <div class="r-label">Voltage Rise (%ΔV)</div>
+              <div class="r-value" id="vr-${seg.id}">—<span class="r-unit">%</span></div>
+              <div class="r-ref">AS/NZS 4777.1<br><span style="color:var(--text-tertiary)">%ΔV = (ΔV / Vnom) × 100</span></div>
+            </div>
+          </div>
+          <div class="cable-props-row">
+            <div class="cable-prop">
+              <span class="cp-label">Rc</span>
+              <span class="cp-value" id="r-${seg.id}">—</span>
+              <span class="cp-unit">Ω/km</span>
+              <div class="r-ref" id="r-ref-${seg.id}" style="margin-top:4px">—</div>
+            </div>
+            <div class="cable-prop">
+              <span class="cp-label">Xc</span>
+              <span class="cp-value" id="x-${seg.id}">—</span>
+              <span class="cp-unit">Ω/km</span>
+              <div class="r-ref" id="x-ref-${seg.id}" style="margin-top:4px">—</div>
+            </div>
+            <div class="cable-prop">
+              <span class="cp-label">Zc</span>
+              <span class="cp-value" id="z-${seg.id}">—</span>
+              <span class="cp-unit">Ω/km</span>
+              <div class="r-ref" style="margin-top:4px;font-family:'Lora',serif;font-style:italic;font-size:12px">√(Rc² + Xc²)</div>
+            </div>
+            <div class="cable-prop">
+              <span class="cp-label">Vc</span>
+              <span class="cp-value" id="vc-${seg.id}">—</span>
+              <span class="cp-unit">Ω/km</span>
+              <div class="r-ref" style="margin-top:4px;font-family:'Lora',serif;font-style:italic;font-size:12px">Rc·cosφ + Xc·sinφ</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(el);
+  });
+}
+
+function updateSegField(id, field, value) {
+  const seg = state.segments.find(s => s.id === id);
+  if(seg) {
+    seg[field] = value;
+    if(field === 'from' || field === 'to') {
+      // Just update the route label
+      const el = document.querySelector(`#segments-container .cable-segment:nth-child(${state.segments.indexOf(seg)+1}) .seg-route`);
+      if(el) el.textContent = `${seg.from||'From'} → ${seg.to||'To'}`;
+      recalcAll();
+    } else if(field === 'insulation' || field === 'coreType' || field === 'sizeIdx') {
+      // Re-render to update header badges
+      renderSegments();
+      recalcAll();
+    } else {
+      recalcAll();
+    }
+  }
+}
+
+function updateConductor(id, value) {
+  const seg = state.segments.find(s => s.id === id);
+  if(seg) {
+    const oldData = getCableDataForSegment(seg);
+    const oldSize = oldData[seg.sizeIdx] ? oldData[seg.sizeIdx].size : 10;
+    seg.conductor = value;
+    // Map to nearest available size in new data
+    const newData = getCableDataForSegment(seg);
+    let bestIdx = 0;
+    let bestDiff = Infinity;
+    newData.forEach((c, i) => {
+      const diff = Math.abs(c.size - oldSize);
+      if(diff < bestDiff) { bestDiff = diff; bestIdx = i; }
+    });
+    seg.sizeIdx = bestIdx;
+    renderSegments();
+    recalcAll();
+  }
+}
+
+// ── Controls ───────────────────────────────────────────
+function setPhase(p) {
+  state.phase = p;
+  document.querySelectorAll('#seg-phase button').forEach((b,i) => {
+    b.classList.toggle('active', (i===0 && p==='1') || (i===1 && p==='3'));
+  });
+  // Update voltage presets for 3-phase
+  document.getElementById('v230').textContent = p==='3' ? '400 V' : '230 V';
+  document.getElementById('v240').textContent = p==='3' ? '415 V' : '240 V';
+  if(p==='3' && state.voltage === 230) setVoltage(400);
+  if(p==='3' && state.voltage === 240) setVoltage(415);
+  if(p==='1' && state.voltage === 400) setVoltage(230);
+  if(p==='1' && state.voltage === 415) setVoltage(240);
+  recalcAll();
+}
+
+function setVoltage(v) {
+  state.voltage = v;
+  state.useCustomVoltage = v === 0;
+  document.getElementById('custom-voltage-wrap').style.display = v===0 ? 'block' : 'none';
+  document.querySelectorAll('#seg-voltage button').forEach(b => b.classList.remove('active'));
+  if(v===230 || v===400) document.getElementById('v230').classList.add('active');
+  else if(v===240 || v===415) document.getElementById('v240').classList.add('active');
+  else if(v===0) document.getElementById('vcustom').classList.add('active');
+  recalcAll();
+}
+
+function setRatingUnit(u) {
+  state.ratingUnit = u;
+  document.querySelectorAll('#seg-unit button').forEach((b,i) => {
+    b.classList.toggle('active', ['kW','kVA','A'][i] === u);
+  });
+  document.getElementById('rating-unit-label').textContent = u;
+  // PF affects Vc (R·cosφ + X·sinφ) regardless of unit, but not current when using Amps
+  const pfField = document.getElementById('power-factor').closest('.field');
+  pfField.style.opacity = '1';
+  recalcAll();
+}
+
+function setMaxVR(v) {
+  state.maxVR = v;
+  state.useCustomVR = v === 0;
+  document.getElementById('custom-vr-wrap').style.display = v===0 ? 'block' : 'none';
+  document.querySelectorAll('#seg-maxvr button').forEach(b => b.classList.remove('active'));
+  const btns = document.querySelectorAll('#seg-maxvr button');
+  const map = {1.5:0, 2.0:1, 2.5:2, 5.0:3, 0:4};
+  if(map[v] !== undefined) btns[map[v]].classList.add('active');
+  recalcAll();
+}
+
+function getVoltage() {
+  if(state.useCustomVoltage) return parseFloat(document.getElementById('custom-voltage').value)||240;
+  return state.voltage;
+}
+
+function getMaxVR() {
+  if(state.useCustomVR) return parseFloat(document.getElementById('custom-vr').value)||2.0;
+  return state.maxVR;
+}
+
+function getCurrentFromRating() {
+  const rating = parseFloat(document.getElementById('load-rating').value) || 5;
+  const pf = parseFloat(document.getElementById('power-factor').value) || 1.0;
+  const V = getVoltage();
+  state.loadRating = rating;
+  state.powerFactor = pf;
+
+  if(state.ratingUnit === 'A') return rating;
+  if(state.ratingUnit === 'kW') {
+    // kW is real power: I = P / V (1-phase) or I = P / (√3 × V) (3-phase)
+    // PF is not used to derive current from kW — it's already real power
+    if(state.phase === '1') return (rating * 1000) / V;
+    return (rating * 1000) / (Math.sqrt(3) * V);
+  }
+  // kVA: I = S / V (1-phase) or I = S / (√3 × V) (3-phase)
+  if(state.phase === '1') return (rating * 1000) / V;
+  return (rating * 1000) / (Math.sqrt(3) * V);
+}
+
+// ── Core calculation ───────────────────────────────────
+function calcSegment(seg, I) {
+  const cableData = getCableDataForSegment(seg);
+  const cd = cableData[seg.sizeIdx];
+  if (!cd) return { R:0, X:0, Z:0, Vc:0, I, dV:0, pct:0 };
+  const ins = seg.insulation || 'pvc';
+  let R, X;
+  if (seg.coreType === 'multi') {
+    if (ins === 'xlpe')      { R = cd.Rm_x;   X = cd.Xm_x; }
+    else if (ins === '110')  { R = cd.Rm_110;  X = cd.Xm_x; } // 110°C uses XLPE reactance
+    else                     { R = cd.Rm;      X = cd.Xm; }
+  } else {
+    if (ins === 'xlpe')      { R = cd.Rs_x;   X = cd.Xs_x; }
+    else if (ins === '110')  { R = cd.Rs_110;  X = cd.Xs_x; } // 110°C uses XLPE reactance
+    else                     { R = cd.Rs;      X = cd.Xs; }
+  }
+  const Z = Math.sqrt(R*R + X*X);
+  const V = getVoltage();
+  const L = seg.distance || 0;
+
+  // Power factor angle for R·cosφ + X·sinφ method (AS/NZS 3008.1.1 Appendix C)
+  const pf = parseFloat(document.getElementById('power-factor').value) || 1.0;
+  const cosP = pf;
+  const sinP = Math.sqrt(1 - pf * pf);
+  const Vc = R * cosP + X * sinP; // effective voltage drop coefficient (Ω/km)
+
+  let dV;
+  if (state.phase === '1') {
+    dV = I * L * 2 * Vc / 1000;
+  } else {
+    dV = I * L * Math.sqrt(3) * Vc / 1000;
+  }
+  const pct = (dV / V) * 100;
+  return { R, X, Z, Vc, I, dV, pct };
+}
+
+function recalcAll() {
+  const I = getCurrentFromRating();
+  const maxVR = getMaxVR();
+  let total = 0;
+
+  const breakdownData = [];
+
+  state.segments.forEach(seg => {
+    const res = calcSegment(seg, I);
+    total += res.pct;
+
+    const fmt = (n,d=4) => isFinite(n) ? n.toFixed(d) : '—';
+    const setEl = (id, val) => { const el = document.getElementById(id); if(el) el.innerHTML = val; };
+
+    // Determine table references based on cable type, insulation and conductor (AS/NZS 3008.1.1:2025)
+    const ins = seg.insulation || 'pvc';
+    const isAl = seg.conductor === 'al';
+    const condMat = isAl ? 'Al' : 'Cu';
+    let rTable, rCol, xTable, xCol;
+    if (seg.coreType === 'multi') {
+      rTable = isAl ? 'Table 4.7(B)' : 'Table 4.7(A)';
+      rCol   = ins==='110' ? 'Col 7' : ins==='xlpe'? 'Col 6' : 'Col 5';
+      xTable = 'Table 4.1(B)';
+      xCol   = ins==='pvc' ? 'Col 8' : 'Col 9';
+    } else {
+      rTable = isAl ? 'Table 4.5(B)' : 'Table 4.5(A)';
+      rCol   = ins==='110' ? 'Col 8' : ins==='xlpe'? 'Col 7' : 'Col 5';
+      xTable = 'Table 4.1(A)';
+      xCol   = ins==='pvc' ? 'Cols 4–5' : 'Col 6';
+    }
+    const phaseFormula = state.phase === '1'
+      ? 'ΔV = I × L × 2 × Vc / 1000'
+      : 'ΔV = I × L × √3 × Vc / 1000';
+    const phaseRef = state.phase === '1' ? '1-phase · AS/NZS 3008.1.1 App C' : '3-phase · AS/NZS 3008.1.1 App C';
+
+    setEl(`r-${seg.id}`,    fmt(res.R,4));
+    setEl(`x-${seg.id}`,    fmt(res.X,4));
+    setEl(`z-${seg.id}`,    fmt(res.Z,4));
+    setEl(`vc-${seg.id}`,   fmt(res.Vc,4));
+    setEl(`i-${seg.id}`,    `${fmt(res.I,2)}<span class="r-unit">A</span>`);
+    setEl(`vd-${seg.id}`,   `${fmt(res.dV,3)}<span class="r-unit">V</span>`);
+    setEl(`vr-${seg.id}`,   `${fmt(res.pct,3)}<span class="r-unit">%</span>`);
+
+    setEl(`r-ref-${seg.id}`, `${rTable}, ${rCol}`);
+    setEl(`x-ref-${seg.id}`, `${xTable}, ${xCol}`);
+    setEl(`vd-ref-${seg.id}`,`${phaseRef}<br><span style="color:var(--text-tertiary)">${phaseFormula}</span>`);
+
+    const badge = document.getElementById(`seg-badge-${seg.id}`);
+    if(badge) {
+      badge.textContent = `${fmt(res.pct,2)}%`;
+      badge.className = `seg-badge ${res.pct < maxVR*0.7 ? 'ok' : res.pct < maxVR ? 'warn' : 'err'}`;
+    }
+
+    breakdownData.push({ label: seg.from||`Seg ${seg.id}`, pct: res.pct });
+  });
+
+  // Update total display
+  const totalEl = document.getElementById('total-vr');
+  const cls = total < maxVR*0.7 ? 'ok' : total < maxVR ? 'warn' : 'err';
+  totalEl.className = `total-value ${cls}`;
+  totalEl.innerHTML = `${total.toFixed(2)}<span class="total-unit">%</span>`;
+
+  // Limit display
+  document.getElementById('limit-display').textContent = `≤ ${maxVR.toFixed(2)}%`;
+  document.getElementById('bar-limit-label').textContent = `Max ${maxVR.toFixed(2)}%`;
+
+  const headroom = maxVR - total;
+  document.getElementById('headroom-display').textContent =
+    headroom >= 0 ? `Headroom: ${headroom.toFixed(2)}%` : `Exceeded by: ${Math.abs(headroom).toFixed(2)}%`;
+  document.getElementById('headroom-display').style.color =
+    headroom >= 0 ? 'var(--text-tertiary)' : 'var(--red)';
+
+  // Progress bar
+  const pct = Math.min((total / maxVR) * 100, 110);
+  const bar = document.getElementById('status-bar');
+  bar.style.width = Math.min(pct, 100) + '%';
+  bar.style.background = cls === 'ok' ? 'var(--green)' : cls === 'warn' ? 'var(--warn)' : 'var(--red)';
+
+  // Breakdown
+  const br = document.getElementById('breakdown-row');
+  br.innerHTML = breakdownData.map((d,i) =>
+    `<div class="breakdown-cell"><div class="bc-label">Seg ${i+1} · ${d.label}</div><div class="bc-val">${d.pct.toFixed(3)}<span style="font-size:13px;color:var(--text-tertiary)">%</span></div></div>`
+  ).join('') + `<div class="breakdown-cell" style="border-color:var(--accent);background:var(--accent-dim)"><div class="bc-label" style="color:var(--accent)">Total Rise</div><div class="bc-val" style="color:var(--accent)">${total.toFixed(3)}<span style="font-size:13px">%</span></div></div>`;
+
+  // Status message
+  const msg = document.getElementById('status-message');
+  msg.style.display = 'flex';
+  if(total <= maxVR) {
+    msg.className = `status-msg ${cls}`;
+    msg.innerHTML = cls==='ok'
+      ? `<span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span> Compliant — Total voltage rise of ${total.toFixed(3)}% is well within the ${maxVR.toFixed(2)}% limit.`
+      : `<span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span> Caution — Total voltage rise of ${total.toFixed(3)}% is approaching the ${maxVR.toFixed(2)}% limit.`;
+  } else {
+    msg.className = 'status-msg err';
+    msg.innerHTML = `<span class="icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span> Exceeds limit — Total voltage rise of ${total.toFixed(3)}% exceeds the maximum allowable ${maxVR.toFixed(2)}%. Consider a larger cable size or shorter run.`;
+  }
+
+  // Minimum cable size suggestion per segment
+  calcMinSizes(I, maxVR);
+}
+
+function calcMinSizes(I, maxVR) {
+  const panel = document.getElementById('min-size-panel');
+  const results = document.getElementById('min-size-results');
+  if(state.segments.length === 0) { panel.style.display = 'none'; return; }
+  panel.style.display = 'block';
+
+  const pf = parseFloat(document.getElementById('power-factor').value) || 1.0;
+  const cosP = pf;
+  const sinP = Math.sqrt(1 - pf * pf);
+  const V = getVoltage();
+
+  // For each segment, find the minimum cable size that keeps the TOTAL within the limit
+  // Strategy: for each segment, try all sizes from smallest to largest while keeping other segments at their current size
+  let html = '';
+  state.segments.forEach((seg, idx) => {
+    const cableData = getCableDataForSegment(seg);
+    let minIdx = -1;
+
+    for(let tryIdx = 0; tryIdx < cableData.length; tryIdx++) {
+      // Calculate what the total would be if this segment used tryIdx
+      let testTotal = 0;
+      state.segments.forEach((s, j) => {
+        const testSeg = (j === idx) ? {...s, sizeIdx: tryIdx} : s;
+        const testData = getCableDataForSegment(testSeg);
+        const cd = testData[testSeg.sizeIdx];
+        if(!cd) return;
+        const ins = testSeg.insulation || 'pvc';
+        let R, X;
+        if (testSeg.coreType === 'multi') {
+          if (ins === 'xlpe')      { R = cd.Rm_x;   X = cd.Xm_x; }
+          else if (ins === '110')  { R = cd.Rm_110;  X = cd.Xm_x; }
+          else                     { R = cd.Rm;      X = cd.Xm; }
+        } else {
+          if (ins === 'xlpe')      { R = cd.Rs_x;   X = cd.Xs_x; }
+          else if (ins === '110')  { R = cd.Rs_110;  X = cd.Xs_x; }
+          else                     { R = cd.Rs;      X = cd.Xs; }
+        }
+        const Vc = R * cosP + X * sinP;
+        const L = testSeg.distance || 0;
+        let dV;
+        if (state.phase === '1') { dV = I * L * 2 * Vc / 1000; }
+        else { dV = I * L * Math.sqrt(3) * Vc / 1000; }
+        testTotal += (dV / V) * 100;
+      });
+      if(testTotal <= maxVR) { minIdx = tryIdx; break; }
+    }
+
+    const currentSize = cableData[seg.sizeIdx] ? cableData[seg.sizeIdx].label : '—';
+    const minSize = minIdx >= 0 ? cableData[minIdx].label : 'None sufficient';
+    const isSame = minIdx === seg.sizeIdx;
+    const isSmaller = minIdx >= 0 && minIdx < seg.sizeIdx;
+    const condLabel = seg.conductor === 'al' ? 'Al' : 'Cu';
+
+    let statusColor, statusBg, statusText;
+    if(minIdx < 0) {
+      statusColor = 'var(--red)'; statusBg = 'var(--red-dim)'; statusText = 'No size fits within limit';
+    } else if(isSmaller) {
+      statusColor = 'var(--blue)'; statusBg = 'var(--blue-dim)'; statusText = `Could reduce to ${minSize}`;
+    } else if(isSame) {
+      statusColor = 'var(--green)'; statusBg = 'var(--green-dim)'; statusText = 'Already minimum';
+    } else {
+      statusColor = 'var(--accent)'; statusBg = 'var(--accent-dim)'; statusText = `Increase to at least ${minSize}`;
+    }
+
+    html += `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 20px">
+      <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">Seg ${idx+1} · ${seg.from||'—'} → ${seg.to||'—'} · ${condLabel}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <span style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;color:var(--text)">${currentSize}</span>
+          <span style="font-family:'Syne',sans-serif;font-size:13px;color:var(--text-tertiary);margin-left:6px">current</span>
+        </div>
+        <span style="font-family:'Syne',sans-serif;font-size:14px;color:var(--text-tertiary)">→</span>
+        <div>
+          <span style="font-family:'Syne',sans-serif;font-size:18px;color:${statusColor};font-weight:700">${minSize}</span>
+          <span style="font-family:'Syne',sans-serif;font-size:13px;color:var(--text-tertiary);margin-left:6px">min.</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:${statusColor};background:${statusBg};padding:6px 10px;border-radius:4px;text-align:center">${statusText}</div>
+    </div>`;
+  });
+  results.innerHTML = html;
+}
+
+function printReport() {
+  recalcAll();
+  const I = getCurrentFromRating();
+  const V = getVoltage();
+  const maxVR = getMaxVR();
+  const pf = parseFloat(document.getElementById('power-factor').value) || 1.0;
+  const phaseLabel = state.phase === '1' ? 'Single-phase' : 'Three-phase';
+  const unitLabel = state.ratingUnit;
+  const rating = parseFloat(document.getElementById('load-rating').value) || 5;
+  const fmt = (n,d=4) => isFinite(n) ? n.toFixed(d) : '—';
+
+  // Project details
+  const projName = document.getElementById('proj-name').value || '—';
+  const projRef = document.getElementById('proj-ref').value || '—';
+  const projDateRaw = document.getElementById('proj-date').value;
+  const projDate = projDateRaw ? new Date(projDateRaw).toLocaleDateString('en-AU', { day:'numeric', month:'long', year:'numeric' }) : '—';
+  const projOrg = document.getElementById('proj-org').value || '—';
+  const projPrepared = document.getElementById('proj-prepared').value || '—';
+  const projAuthorised = document.getElementById('proj-authorised').value || '—';
+  const projNotes = document.getElementById('proj-notes').value || '';
+
+  let totalPct = 0;
+  const segResults = state.segments.map((seg, idx) => {
+    const res = calcSegment(seg, I);
+    totalPct += res.pct;
+    const cableData = getCableDataForSegment(seg);
+    const cd = cableData[seg.sizeIdx];
+    const condLabel = seg.conductor === 'al' ? 'Aluminium' : 'Copper';
+    const insLabel = seg.insulation === '110' ? 'X-HF-110 / EPR (110°C)' : seg.insulation === 'xlpe' ? 'XLPE (90°C)' : 'PVC (75°C)';
+    const coreLabel = seg.coreType === 'multi' ? 'Multicore' : 'Single-core';
+
+    const isAl = seg.conductor === 'al';
+    const ins = seg.insulation || 'pvc';
+    let rTable, rCol, xTable, xCol;
+    if (seg.coreType === 'multi') {
+      rTable = isAl ? 'Table 4.7(B)' : 'Table 4.7(A)';
+      rCol = ins==='110' ? 'Col 7' : ins==='xlpe' ? 'Col 6' : 'Col 5';
+      xTable = 'Table 4.1(B)';
+      xCol = ins==='pvc' ? 'Col 8' : 'Col 9';
+    } else {
+      rTable = isAl ? 'Table 4.5(B)' : 'Table 4.5(A)';
+      rCol = ins==='110' ? 'Col 8' : ins==='xlpe' ? 'Col 7' : 'Col 5';
+      xTable = 'Table 4.1(A)';
+      xCol = ins==='pvc' ? 'Cols 4-5' : 'Col 6';
+    }
+
+    return { seg, idx, res, cd, condLabel, insLabel, coreLabel, rTable, rCol, xTable, xCol };
+  });
+
+  const passOrFail = totalPct <= maxVR;
+  const resultClass = passOrFail ? 'pr-pass' : 'pr-fail';
+  const resultText = passOrFail ? 'PASS' : 'FAIL';
+
+  let html = `<div class="pr">
+    <div class="pr-header">
+      <div class="pr-title">Cable Voltage Rise Report</div>
+      <div class="pr-subtitle">AS/NZS 3008.1.1:2025 · SparkyCalc</div>
+    </div>`;
+
+  // Project information — only include filled fields, skip section if all empty
+  const projFields = [
+    { label: 'Project / site name', value: projName },
+    { label: 'Reference no.', value: projRef },
+    { label: 'Date', value: projDate },
+    { label: 'Organisation', value: projOrg },
+    { label: 'Prepared by', value: projPrepared },
+    { label: 'Authorised by', value: projAuthorised },
+    { label: 'Notes', value: projNotes },
+  ].filter(f => f.value && f.value !== '—');
+
+  let sectionNum = 1;
+
+  if (projFields.length > 0) {
+    html += `
+    <div class="pr-section">
+      <div class="pr-section-title">${sectionNum}. Project Information</div>
+      <table class="pr-table">
+        ${projFields.map(f => `<tr><td>${f.label}</td><td>${f.value}</td></tr>`).join('')}
+      </table>
+    </div>`;
+    sectionNum++;
+  }
+
+  html += `
+    <div class="pr-section">
+      <div class="pr-section-title">${sectionNum}. System Configuration</div>
+      <table class="pr-table">
+        <tr><td>Phase system</td><td>${phaseLabel}</td></tr>
+        <tr><td>Nominal voltage</td><td>${V} V</td></tr>
+        <tr><td>Load rating</td><td>${rating} ${unitLabel}</td></tr>
+        <tr><td>Design current</td><td>${fmt(I,2)} A</td></tr>
+        <tr><td>Power factor (cos φ)</td><td>${pf}</td></tr>
+        <tr><td>Max allowable voltage rise</td><td>${maxVR}%</td></tr>
+      </table>
+    </div>`;
+  sectionNum++;
+
+  segResults.forEach(({seg, idx, res, cd, condLabel, insLabel, coreLabel, rTable, rCol, xTable, xCol}) => {
+    const phaseMultiplier = state.phase === '1' ? '2' : '√3';
+    const phaseMultVal = state.phase === '1' ? 2 : Math.sqrt(3);
+
+    html += `
+    <div class="pr-section">
+      <div class="pr-section-title">${sectionNum}. Calculation Detail — Segment ${idx+1}</div>
+      <div class="pr-seg-header"><span class="pr-seg-num">Segment ${idx+1}:</span> ${seg.from||'—'} → ${seg.to||'—'}</div>
+
+      <table class="pr-table">
+        <tr><td>Conductor material</td><td>${condLabel}</td></tr>
+        <tr><td>Conductor size</td><td>${cd ? cd.label : '—'}</td></tr>
+        <tr><td>Insulation / temp rating</td><td>${insLabel}</td></tr>
+        <tr><td>Cable arrangement</td><td>${coreLabel}</td></tr>
+        <tr><td>One-way cable length</td><td>${seg.distance} m</td></tr>
+      </table>
+
+
+      <div class="pr-steps">
+        <div class="pr-step">
+          <div class="pr-step-num">a</div>
+          <div class="pr-step-content">
+            <div class="pr-step-value">${fmt(res.R,4)}<span class="unit"> Ω/km</span></div>
+            <div class="pr-step-desc">AC resistance (Rc) from ${rTable}, ${rCol}</div>
+          </div>
+        </div>
+        <div class="pr-step">
+          <div class="pr-step-num">b</div>
+          <div class="pr-step-content">
+            <div class="pr-step-value">${fmt(res.X,4)}<span class="unit"> Ω/km</span></div>
+            <div class="pr-step-desc">Reactance (Xc) from ${xTable}, ${xCol}</div>
+          </div>
+        </div>
+        <div class="pr-step">
+          <div class="pr-step-num">c</div>
+          <div class="pr-step-content">
+            <div class="pr-step-value">cosφ = ${pf.toFixed(4)}, sinφ = ${Math.sqrt(1-pf*pf).toFixed(4)}</div>
+            <div class="pr-step-desc">Power factor components — sinφ = √(1 − ${pf}²) = ${Math.sqrt(1-pf*pf).toFixed(4)}</div>
+          </div>
+        </div>
+        <div class="pr-step">
+          <div class="pr-step-num">d</div>
+          <div class="pr-step-content">
+            <div class="pr-step-value">${fmt(res.Vc,4)}<span class="unit"> Ω/km</span></div>
+            <div class="pr-step-desc">Effective impedance — Vc = ${fmt(res.R,4)} × ${pf} + ${fmt(res.X,4)} × ${Math.sqrt(1-pf*pf).toFixed(4)}</div>
+            <div class="pr-step-formula">Vc = Rc·cosφ + Xc·sinφ</div>
+          </div>
+        </div>
+        <div class="pr-step">
+          <div class="pr-step-num">e</div>
+          <div class="pr-step-content">
+            <div class="pr-step-value">${fmt(res.dV,4)}<span class="unit"> V</span></div>
+            <div class="pr-step-desc">Voltage drop — ΔV = ${phaseMultiplier} × ${fmt(res.I,2)} × ${seg.distance} × ${fmt(res.Vc,4)} / 1000</div>
+            <div class="pr-step-formula">ΔV = ${phaseMultiplier} × I × L × Vc / 1000</div>
+          </div>
+        </div>
+        <div class="pr-step">
+          <div class="pr-step-num">f</div>
+          <div class="pr-step-content">
+            <div class="pr-step-value">${fmt(res.pct,3)}%<span class="unit"> ${res.pct <= maxVR ? 'PASS' : 'FAIL'}</span></div>
+            <div class="pr-step-desc">Percentage voltage rise — %ΔV = ${fmt(res.dV,4)} / ${V} × 100 (limit: ${maxVR}%)</div>
+            <div class="pr-step-formula">%ΔV = (ΔV / V) × 100</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+    sectionNum++;
+  });
+
+  // Headroom
+  const headroom = maxVR - totalPct;
+  const totalDV = segResults.reduce((sum, s) => sum + s.res.dV, 0);
+
+  html += `
+    <div class="pr-section">
+      <div class="pr-section-title">${sectionNum}. Result</div>
+      <table class="pr-table">
+        <tr><td>Total voltage drop</td><td>${fmt(totalDV,3)} V</td></tr>
+        <tr><td>Total voltage rise</td><td>${fmt(totalPct,3)}%</td></tr>
+        <tr><td>Voltage drop limit</td><td>${maxVR}% (${fmt(maxVR/100*V,1)} V max)</td></tr>
+        <tr><td>Voltage at the load</td><td>${fmt(V - totalDV,1)} V</td></tr>
+        <tr>
+          <td>Result</td>
+          <td style="font-family:'Syne',sans-serif;font-weight:700;color:${passOrFail ? '#16a34a' : '#dc2626'}">${resultText} — ${passOrFail ? 'Within limit' : 'Exceeds limit'}</td>
+        </tr>
+      </table>
+    </div>`;
+  sectionNum++;
+
+  html += `
+    <div class="pr-section">
+      <div class="pr-section-title">${sectionNum}. Standard Reference</div>
+      <table class="pr-table">
+        <tr><td>Standard</td><td>AS/NZS 3008.1.1:2025</td></tr>
+        <tr><td>Calculation method</td><td>Impedance method (Vc = Rc·cosφ + Xc·sinφ)</td></tr>
+        <tr><td>Voltage drop formula</td><td>ΔV = I × L × ${state.phase==='1'?'2':'√3'} × Vc / 1000</td></tr>
+        <tr><td>Voltage rise limits</td><td>AS/NZS 4777.1:2024 Cl. 4.5</td></tr>
+      </table>
+    </div>
+
+    <div class="pr-disclaimer">
+      The values in this report are estimations based on input data and the calculation method used. While every effort has been made to ensure accuracy, this calculation is a guide only and should not be solely relied upon for final design or installation decisions. Current-carrying capacity (CCC) must be independently verified per AS/NZS 3008.1.1:2025 with all applicable correction factors. Consult a qualified electrical engineer for detailed analysis and compliance with local regulations.
+    </div>
+
+    </div>
+  </div>`;
+
+  document.getElementById('print-report').innerHTML = html;
+  setTimeout(() => window.print(), 100);
+}
+
+function resetAll() {
+  if(!confirm('Reset all inputs to default values?')) return;
+  document.getElementById('load-rating').value = 5;
+  document.getElementById('power-factor').value = 1.0;
+  document.getElementById('custom-voltage').value = 240;
+  document.getElementById('custom-vr').value = 2.0;
+  setPhase('1');
+  setVoltage(240);
+  setRatingUnit('kW');
+  setMaxVR(2.0);
+  state.segments = [];
+  segmentCounter = 0;
+  init();
+}
+
+function toggleStandards(btn) {
+  const body = document.getElementById('standards-body');
+  const arrow = document.getElementById('std-arrow');
+  body.classList.toggle('open');
+  arrow.style.transform = body.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+
+function toggleFormulas(btn) {
+  const content = document.getElementById('formula-content');
+  content.classList.toggle('visible');
+  const arrow = btn.querySelector('span');
+  if(content.classList.contains('visible')) {
+    arrow.style.borderLeft = '5px solid transparent';
+    arrow.style.borderRight = '5px solid transparent';
+    arrow.style.borderTop = '6px solid var(--text-tertiary)';
+    arrow.style.borderBottom = 'none';
+    btn.childNodes[1].textContent = ' Hide Calculation Formulas';
+  } else {
+    arrow.style.borderTop = '4px solid transparent';
+    arrow.style.borderBottom = '4px solid transparent';
+    arrow.style.borderLeft = '6px solid var(--text-tertiary)';
+    arrow.style.borderRight = 'none';
+    btn.childNodes[1].textContent = ' Show Calculation Formulas';
+  }
+}
+
+// ── Kick off ───────────────────────────────────────────
+init();
+</script>
+</body>
+</html>
